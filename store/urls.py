@@ -14,17 +14,15 @@ from drf_yasg import openapi
 from cart.views import OrdersViewSet
 
 
-
 router = DefaultRouter()
 router.register('products', ProductViewSet)
 router.register(r'cart', OrdersViewSet)
 router.register(r'comments', CommentViewSet)
 
 
-# schema_view = get_swagger_view(title= 'Jaseci API')
 schema_view = get_schema_view(
     openapi.Info(
-        title="My Swagger",
+        title="Libre Shop",
         default_version='v1',
         description="Welcome to my Project",
         terms_of_service="https://www.jaseci.org",
@@ -36,6 +34,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('docs/', schema_view),
     # path('', include_docs_urls(title='My project Swagger')),
     re_path(r'^doc(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0), name='schema-json'),  #<-- Here
@@ -47,6 +46,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('accounts/', include('account.urls')),
-    path('home/', include(router.urls)),
+    path('homepage/', include(router.urls)),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

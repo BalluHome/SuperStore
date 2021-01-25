@@ -49,7 +49,6 @@ class OrdersSerializer(WritableNestedModelSerializer, serializers.ModelSerialize
         instance.save()
         return instance
 
-
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['items'] = OrderItemReprSerializer(instance.items.all(), many=True).data
