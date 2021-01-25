@@ -20,29 +20,7 @@ router.register(r'cart', OrdersViewSet)
 router.register(r'comments', CommentViewSet)
 
 
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Libre Shop",
-        default_version='v1',
-        description="Welcome to my Project",
-        terms_of_service="https://www.jaseci.org",
-        contact=openapi.Contact(email="jason@jaseci.org"),
-        license=openapi.License(name="Awesome IP"),
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
-)
-
 urlpatterns = [
-    path('docs/', schema_view),
-    # path('', include_docs_urls(title='My project Swagger')),
-    re_path(r'^doc(?P<format>\.json|\.yaml)$',
-            schema_view.without_ui(cache_timeout=0), name='schema-json'),  #<-- Here
-    path('', schema_view.with_ui('swagger', cache_timeout=0),
-         name='schema-swagger-ui'),  #<-- Here
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
-         name='schema-redoc'),
-    # path('docs/', schema_view),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('accounts/', include('account.urls')),
